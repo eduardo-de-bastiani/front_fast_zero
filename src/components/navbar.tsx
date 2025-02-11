@@ -1,4 +1,3 @@
-// src/components/navbar.tsx
 import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -12,7 +11,7 @@ interface NavbarProps {
   username: string;
 }
 
-function Navbar({ username }: NavbarProps) {
+const Navbar: React.FC<NavbarProps> = ({username}) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -24,8 +23,8 @@ function Navbar({ username }: NavbarProps) {
   };
 
   return (
-    <AppBar position="static">
-      <Toolbar>
+    <AppBar position="fixed" color='primary'>
+      <Toolbar variant='dense'>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           {username}
         </Typography>

@@ -1,4 +1,3 @@
-// src/pages/tasks_list.tsx
 import React from 'react';
 import { Container, Box } from '@mui/material';
 import Navbar from '../components/navbar';

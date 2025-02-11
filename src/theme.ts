@@ -1,18 +1,30 @@
-// src/theme.ts
 import { createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
   palette: {
-    mode: 'dark', // Define o modo escuro
+    mode: 'dark',
     primary: {
-      main: '#90caf9',
+      main: '#7E57C2',
     },
     secondary: {
-      main: '#f48fb1',
+      main: '#CE93D8',
+    },
+    background: {
+      default: '#121212',
+      paper: '#1E1E1E',
     },
   },
   typography: {
     fontFamily: 'Roboto, sans-serif',
+  },
+  components: {
+    MuiAppBar: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#7E57C2',
+        },
+      },
+    },
   },
 });
 
