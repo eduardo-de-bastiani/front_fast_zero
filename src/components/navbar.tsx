@@ -43,9 +43,9 @@ function Navbar({ username }: NavbarProps) {
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-            <MenuItem onClick={handleClose}>Editar Perfil</MenuItem>
-            <MenuItem onClick={handleClose}>Encerrar Sessão</MenuItem>
-            <MenuItem onClick={handleClose}>Deletar Usuário</MenuItem>
+            <MenuItem onClick={handleClose}>Edit Profile</MenuItem>
+            <MenuItem onClick={handleClose}>Logout</MenuItem>
+            <MenuItem onClick={handleClose}>Delete Account</MenuItem>
           </Menu>
         </div>
       </Toolbar>

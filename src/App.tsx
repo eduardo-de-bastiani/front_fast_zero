@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import React from 'react'
 import Navbar from './components/navbar'
+import TasksList from './pages/tasks_list'
 
 function App() {
   const username = 'Eduardo De Bastiani'
@@ -11,8 +12,7 @@ function App() {
   return (
     <>
       <div>
-        <Navbar username={username}/>
-        <h1>Welcome to my ToDo App</h1>
+        <TasksList/>
       </div>
     </>
   )
