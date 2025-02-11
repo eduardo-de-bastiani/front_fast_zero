@@ -3,6 +3,7 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import AccountCircle from '@mui/icons-material/AccountCircle';
@@ -26,17 +27,20 @@ const Navbar: React.FC<NavbarProps> = ({username}) => {
     <AppBar position="fixed" color='primary'>
       <Toolbar variant='dense'>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          {username}
+          ToDo List App
         </Typography>
         <div>
-          <IconButton
-            size="large"
-            edge="end"
-            color="inherit"
-            onClick={handleMenu}
-          >
-            <AccountCircle />
-          </IconButton>
+        <Button
+          color="inherit"
+          onClick={handleMenu}
+          startIcon={<AccountCircle />}
+          sx={{
+            textTransform: 'none',
+            fontSize: '0.875rem', // tamanho de fonte reduzido
+          }}
+        >
+          {username}
+        </Button>
           <Menu
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}
