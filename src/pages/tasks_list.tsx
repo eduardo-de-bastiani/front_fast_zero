@@ -1,17 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Box } from '@mui/material';
 import Navbar from '../components/navbar';
+import SideBar from '../components/sidebar';
 
 
 const TasksList: React.FC = () => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
     return (
       <>
         {/* Navbar com exemplo de usuário */}
         <Navbar username="Username" />
-        
-        {/* Conteúdo principal dentro de um container */}
-        <Container maxWidth="lg" sx={{ mt: 4 }}>
-          
+        <SideBar
+        open={sidebarOpen}
+        onOpen={() => setSidebarOpen(true)}
+        onClose={() => setSidebarOpen(false)}
+        />
+        <Container maxWidth="lg" sx={{ mt: 10, ml: sidebarOpen ? '300px' : 0, transition: 'margin 0.3s' }}>
+        <Box>
+          <h1>Tasks</h1>
+        </Box>
         </Container>
       </>
     );

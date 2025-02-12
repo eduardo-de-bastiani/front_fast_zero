@@ -9,6 +9,7 @@ import {
   FormControl,
   InputLabel,
   Button,
+  Typography
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
@@ -33,7 +34,7 @@ return (
         <IconButton
           onClick={onOpen}
           sx={{ position: 'fixed', top: 16, left: 16, zIndex: 1201 }}
-          aria-label="Abrir filtros"
+          aria-label="Open Filters"
         >
           <MenuIcon />
         </IconButton>
@@ -51,22 +52,14 @@ return (
           },
         }}
       >
-        <Box display="flex" justifyContent="flex-end">
+        <Box display="flex" justifyContent="space-between" alignItems="center">
+        <Typography variant="h6">Custom Filters</Typography>
           <IconButton onClick={onClose} aria-label="Close Filters">
             <CloseIcon />
           </IconButton>
         </Box>
 
         <Box component="form" noValidate sx={{ mt: 2 }}>
-          {/* Campo de Busca */}
-          <TextField
-            label="Search Tasks"
-            variant="outlined"
-            fullWidth
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            sx={{ mb: 2 }}
-          />
 
           {/* Filtro por Título */}
           <TextField
