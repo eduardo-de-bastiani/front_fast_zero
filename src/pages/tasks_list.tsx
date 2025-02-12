@@ -2,10 +2,15 @@ import React, { useState } from 'react';
 import { Container, Box } from '@mui/material';
 import Navbar from '../components/navbar';
 import SideBar from '../components/sidebar';
-
+import ToggleSidebarButton from '../components/ToggleSideBarButton';
 
 const TasksList: React.FC = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const sidebarWidth = 300;
+
+  const handleToggleSidebar = () => {
+    setSidebarOpen((prev) => !prev);
+  };
 
     return (
       <>
@@ -16,7 +21,20 @@ const TasksList: React.FC = () => {
         onOpen={() => setSidebarOpen(true)}
         onClose={() => setSidebarOpen(false)}
         />
-        <Container maxWidth="lg" sx={{ mt: 10, ml: sidebarOpen ? '300px' : 0, transition: 'margin 0.3s' }}>
+
+        {/* Botão de toggle fixado no lado esquerdo */}
+        <ToggleSidebarButton 
+        open={sidebarOpen} 
+        onToggle={handleToggleSidebar} 
+        sidebarWidth={sidebarWidth} />
+
+        <Container maxWidth="lg"
+        sx={{ 
+          mt: 10, 
+          ml: sidebarOpen ? `${sidebarWidth}px` : 0, 
+          transition: 'margin-left 0.3s'
+        }}
+        >
         <Box>
           <h1>Tasks</h1>
         </Box>
