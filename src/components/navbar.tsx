@@ -2,7 +2,6 @@ import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -27,7 +26,7 @@ const Navbar: React.FC<NavbarProps> = ({username}) => {
     <AppBar position="fixed" color='primary'>
       <Toolbar variant='dense'>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          ToDo List App
+          ToDos' App
         </Typography>
         <div>
         <Button
@@ -36,7 +35,7 @@ const Navbar: React.FC<NavbarProps> = ({username}) => {
           startIcon={<AccountCircle />}
           sx={{
             textTransform: 'none',
-            fontSize: '0.875rem', // tamanho de fonte reduzido
+            fontSize: '0.875rem',
           }}
         >
           {username}
