@@ -83,19 +83,29 @@ return (
 
           {/* Filtro por Estado */}
           <FormControl fullWidth sx={{ mb: 2 }}>
-            <InputLabel id="state-filter-label">Estado</InputLabel>
+            <InputLabel id="state-filter-label" shrink={true}>Estado</InputLabel>
             <Select
-              labelId="state-filter-label"
-              label="State"
-              value={stateFilter}
-              onChange={(e) => setStateFilter(e.target.value)}
+                labelId="state-filter-label"
+                label="Estado"
+                value={stateFilter}
+                onChange={(e) => setStateFilter(e.target.value)}
+                displayEmpty
+                renderValue={(selected) => {
+                if (selected === '') {
+                    return <span style={{ opacity: 0.5 }}>Any</span>;
+                }
+                return selected;
+                }}
             >
-              <MenuItem value="draft">Draft</MenuItem>
-              <MenuItem value="todo">To Do</MenuItem>
-              <MenuItem value="doing">Doing</MenuItem>
-              <MenuItem value="done">Done</MenuItem>
+                <MenuItem value="">
+                <em>Any</em>
+                </MenuItem>
+                <MenuItem value="Draft">Draft</MenuItem>
+                <MenuItem value="To Do">To Do</MenuItem>
+                <MenuItem value="Doing">Doing</MenuItem>
+                <MenuItem value="Done">Done</MenuItem>
             </Select>
-          </FormControl>
+            </FormControl>
 
           <Button variant="contained" color="primary" fullWidth>
             Apply Filters
