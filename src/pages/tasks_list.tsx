@@ -4,6 +4,7 @@ import Navbar from '../components/navbar';
 import SideBar from '../components/sidebar';
 import ToggleSidebarButton from '../components/toggle_sidebar_button';
 import TaskForm from '../components/task_form';
+import { TaskFormData } from '../types/task';
 
 const TasksList: React.FC = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
