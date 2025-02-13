@@ -4,14 +4,14 @@ const theme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: '#512DA8', // Roxo mais escuro e forte
+      main: '#512DA8',
     },
     secondary: {
-      main: '#00ACC1', // Cor secundária: teal
+      main: '#00ACC1', // teal
     },
     background: {
       default: '#000000', // Fundo pitch black
-      paper: '#1E1E1E',
+      paper: '#000000',
     },
     text: {
       primary: '#ffffff',
@@ -22,10 +22,15 @@ const theme = createTheme({
     fontFamily: 'Roboto, sans-serif',
   },
   components: {
+    MuiButtonBase: {
+      defaultProps: {
+        disableRipple: true,
+      },
+    },
     MuiAppBar: {
       styleOverrides: {
         root: {
-          backgroundColor: '#512DA8', // Define o AppBar com o roxo atualizado
+          backgroundColor: '#512DA8',
           boxShadow: 'none',
         },
       },
@@ -33,7 +38,7 @@ const theme = createTheme({
     MuiMenu: {
       styleOverrides: {
         paper: {
-          backgroundColor: '#000000', // Fundo do menu permanece pitch black
+          backgroundColor: '#000000',
         },
       },
     },
@@ -42,7 +47,7 @@ const theme = createTheme({
         root: {
           color: '#ffffff',
           '&:hover': {
-            color: '#00ACC1', // Ao passar o mouse, usa a cor secundária (teal)
+            color: '#00ACC1',
           },
           '&.Mui-selected': {
             color: '#00ACC1',

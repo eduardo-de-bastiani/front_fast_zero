@@ -22,7 +22,6 @@ interface SideBarProps {
 
 const SideBar: React.FC<SideBarProps> = ({ open, onOpen, onClose }) => {
 
-const [search, setSearch] = React.useState('');
 const [title, setTitle] = React.useState('');
 const [description, setDescription] = React.useState('');
 const [stateFilter, setStateFilter] = React.useState('');
