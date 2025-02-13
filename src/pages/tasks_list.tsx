@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Container, Box } from '@mui/material';
 import Navbar from '../components/navbar';
 import SideBar from '../components/sidebar';
-import ToggleSidebarButton from '../components/ToggleSideBarButton';
+import ToggleSidebarButton from '../components/toggle_sidebar_button';
+import TaskForm from '../components/task_form';
 
 const TasksList: React.FC = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -10,6 +11,11 @@ const TasksList: React.FC = () => {
 
   const handleToggleSidebar = () => {
     setSidebarOpen((prev) => !prev);
+  };
+
+  const handleSubmit = (data: TaskFormData) => {
+    console.log('Dados do formulário:', data);
+    // logica de envio das tarefas para o back
   };
 
     return (
@@ -35,6 +41,9 @@ const TasksList: React.FC = () => {
           transition: 'margin-left 0.3s'
         }}
         >
+        <div>
+          <TaskForm onSubmit={handleSubmit} />
+        </div>
         <Box>
           <h1>Tasks</h1>
         </Box>

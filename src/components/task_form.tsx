@@ -11,7 +11,7 @@ import {
   Typography
 } from '@mui/material';
 
-type TaskState = 'draft' | 'pending' | 'completed';
+type TaskState = 'Draft' | 'To Do' | 'Doing' | 'Done';
 
 interface TaskFormData {
   title: string;
@@ -27,7 +27,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ onSubmit }) => {
   const [formData, setFormData] = useState<TaskFormData>({
     title: '',
     description: '',
-    state: 'draft'
+    state: 'Draft'
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -87,7 +87,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ onSubmit }) => {
           name="state"
         >
           <MenuItem value="Draft">Draft</MenuItem>
-          <MenuItem value="To Do">Pendente</MenuItem>
+          <MenuItem value="To Do">To Do</MenuItem>
           <MenuItem value="Doing">Doing</MenuItem>
           <MenuItem value="Done">Done</MenuItem>
         </Select>
