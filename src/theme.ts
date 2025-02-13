@@ -46,11 +46,15 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           color: '#ffffff',
+          transition: 'color 0.2s',
           '&:hover': {
             color: '#00ACC1',
           },
           '&.Mui-selected': {
-            color: '#00ACC1',
+            color: '#512DA8',
+          },
+          '&:active': {
+            color: '#512DA8',
           },
         },
       },

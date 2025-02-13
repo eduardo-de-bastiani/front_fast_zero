@@ -26,6 +26,15 @@ const [title, setTitle] = React.useState('');
 const [description, setDescription] = React.useState('');
 const [stateFilter, setStateFilter] = React.useState('');
 
+
+const handleApplyFilters = () => {
+  // Lógica para aplicar os filtros
+  // ...
+
+  // Fechar a sidebar
+  onClose();
+};
+
 return (
     <>
       {/* Botão para abrir a sidebar, exibido somente se estiver fechada */}
@@ -106,7 +115,7 @@ return (
             </Select>
             </FormControl>
 
-          <Button variant="contained" color="primary" fullWidth>
+          <Button variant="contained" color="primary" fullWidth onClick={handleApplyFilters}>
             Apply Filters
           </Button>
         </Box>
