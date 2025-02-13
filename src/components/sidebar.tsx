@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Box,
   Drawer,
@@ -9,66 +9,51 @@ import {
   FormControl,
   InputLabel,
   Button,
-  Typography
-} from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import CloseIcon from '@mui/icons-material/Close';
+  Typography,
+} from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 
 interface SideBarProps {
-    open: boolean;
-    onOpen: () => void;
-    onClose: () => void;
-  }
+  open: boolean;
+  onOpen: () => void;
+  onClose: () => void;
+}
 
 const SideBar: React.FC<SideBarProps> = ({ open, onOpen, onClose }) => {
+  const [title, setTitle] = React.useState("");
+  const [description, setDescription] = React.useState("");
+  const [stateFilter, setStateFilter] = React.useState("");
 
-const [title, setTitle] = React.useState('');
-const [description, setDescription] = React.useState('');
-const [stateFilter, setStateFilter] = React.useState('');
+  const handleApplyFilters = () => {
+    // Lógica para aplicar os filtros
+    // ...
 
+    // Fechar a sidebar
+    onClose();
+  };
 
-const handleApplyFilters = () => {
-  // Lógica para aplicar os filtros
-  // ...
-
-  // Fechar a sidebar
-  onClose();
-};
-
-return (
+  return (
     <>
-      {/* Botão para abrir a sidebar, exibido somente se estiver fechada */}
-      {!open && (
-        <IconButton
-          onClick={onOpen}
-          sx={{ position: 'fixed', top: 16, left: 16, zIndex: 1201 }}
-          aria-label="Open Filters"
-        >
-          <MenuIcon />
-        </IconButton>
-      )}
-
       <Drawer
         anchor="left"
         open={open}
         onClose={onClose}
         sx={{
-          '& .MuiDrawer-paper': {
+          "& .MuiDrawer-paper": {
             width: 300,
             padding: 2,
-            backgroundColor: 'background.paper',
+            backgroundColor: "background.paper",
           },
         }}
       >
         <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Typography variant="h6">Custom Filters</Typography>
+          <Typography variant="h6">Custom Filters</Typography>
           <IconButton onClick={onClose} aria-label="Close Filters">
             <CloseIcon />
           </IconButton>
         </Box>
 
         <Box component="form" noValidate sx={{ mt: 2 }}>
-
           {/* Filtro por Título */}
           <TextField
             label="Title"
@@ -91,31 +76,38 @@ return (
 
           {/* Filtro por Estado */}
           <FormControl fullWidth sx={{ mb: 2 }}>
-            <InputLabel id="state-filter-label" shrink={true}>Estado</InputLabel>
+            <InputLabel id="state-filter-label" shrink={true}>
+              Estado
+            </InputLabel>
             <Select
-                labelId="state-filter-label"
-                label="Estado"
-                value={stateFilter}
-                onChange={(e) => setStateFilter(e.target.value)}
-                displayEmpty
-                renderValue={(selected) => {
-                if (selected === '') {
-                    return <span style={{ opacity: 0.5 }}>Any</span>;
+              labelId="state-filter-label"
+              label="Estado"
+              value={stateFilter}
+              onChange={(e) => setStateFilter(e.target.value)}
+              displayEmpty
+              renderValue={(selected) => {
+                if (selected === "") {
+                  return <span style={{ opacity: 0.5 }}>Any</span>;
                 }
                 return selected;
-                }}
+              }}
             >
-                <MenuItem value="">
+              <MenuItem value="">
                 <em>Any</em>
-                </MenuItem>
-                <MenuItem value="Draft">Draft</MenuItem>
-                <MenuItem value="To Do">To Do</MenuItem>
-                <MenuItem value="Doing">Doing</MenuItem>
-                <MenuItem value="Done">Done</MenuItem>
+              </MenuItem>
+              <MenuItem value="Draft">Draft</MenuItem>
+              <MenuItem value="To Do">To Do</MenuItem>
+              <MenuItem value="Doing">Doing</MenuItem>
+              <MenuItem value="Done">Done</MenuItem>
             </Select>
-            </FormControl>
+          </FormControl>
 
-          <Button variant="contained" color="primary" fullWidth onClick={handleApplyFilters}>
+          <Button
+            variant="contained"
+            color="primary"
+            fullWidth
+            onClick={handleApplyFilters}
+          >
             Apply Filters
           </Button>
         </Box>
