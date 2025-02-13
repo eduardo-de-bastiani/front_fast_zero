@@ -39,6 +39,7 @@ const theme = createTheme({
       styleOverrides: {
         paper: {
           backgroundColor: '#000000',
+          border: '1px solid rgba(255, 255, 255, 0.1)',
         },
       },
     },
@@ -48,12 +49,15 @@ const theme = createTheme({
           color: '#ffffff',
           transition: 'color 0.2s',
           '&:hover': {
+            backgroundColor: 'transparent',
             color: '#00ACC1',
           },
           '&.Mui-selected': {
+            backgroundColor: 'transparent',
             color: '#512DA8',
           },
           '&:active': {
+            backgroundColor: 'transparent',
             color: '#512DA8',
           },
         },

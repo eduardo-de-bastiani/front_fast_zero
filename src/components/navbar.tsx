@@ -28,7 +28,7 @@ const Navbar: React.FC<NavbarProps> = ({username}) => {
     sx={{ 
       backgroundColor: 'transparent', 
       boxShadow: 'none',
-      overflow: 'hidden', // Esconde o overflow do blur
+      overflow: 'hidden',
     }}
     >
       {/* Div do fundo com blur */}
@@ -42,13 +42,13 @@ const Navbar: React.FC<NavbarProps> = ({username}) => {
           background: 'linear-gradient(90deg, rgba(81, 45, 168, 0.8), rgba(0, 172, 193, 0.8))',
           backgroundSize: '300% 100%',
           animation: 'gradientAnimation 10s ease infinite',
-          filter: 'blur(10px)', // Aplicando o blur somente no fundo
-          zIndex: -1, // Coloca o fundo atrás dos outros elementos
+          filter: 'blur(10px)',
+          zIndex: -1,
         }}
       />
       <Toolbar>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          ToDos' App
+          To-Do's App
         </Typography>
         <div>
         <Button
