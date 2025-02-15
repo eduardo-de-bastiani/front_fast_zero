@@ -1,10 +1,20 @@
 import React, { useState } from 'react';
-import { Container, TextField, Button, Box, Typography } from '@mui/material';
+import { 
+    Container, 
+    TextField, 
+    Button, Box, 
+    Typography, 
+    IconButton, 
+    InputAdornment
+} from '@mui/material';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 const CreateAccount: React.FC = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
 
@@ -37,9 +47,13 @@ const CreateAccount: React.FC = () => {
         setError(data.detail || 'Error while creating account.');
       }
     } catch (err) {
-      setError('Erro de rede.');
+      setError('Network error.');
     }
   };
+
+  const handleClickShowPassword = () => {
+      setShowPassword((prev) => !prev);
+    };
 
   return (
     <Container maxWidth="sm" sx={{ mt: 10 }}>
@@ -73,10 +87,21 @@ const CreateAccount: React.FC = () => {
         <TextField
           label="Senha"
           variant="outlined"
-          type="password"
+          type={showPassword ? 'text' : 'password'}
           required
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          slotProps={{
+        input: {
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton onClick={handleClickShowPassword} edge="end">
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          ),
+        },
+      }}
         />
         {error && (
           <Typography variant="body2" color="error">
