@@ -1,10 +1,18 @@
 import React from 'react';
+import { login } from '../services/LoginService';
 import { Container, TextField, Button, Box, Typography } from '@mui/material';
 
 const Login: React.FC = () => {
     const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      // Lógica de autenticação aqui (chamada à API, validação, etc.)
+      const form = new FormData(event.currentTarget)
+      const email = String(form.get("email"))
+      const password = String(form.get("password"))
+
+      if(email === null || password === null){
+        return
+      }
+      login(email, password)
     };
 
     return (
@@ -15,12 +23,14 @@ const Login: React.FC = () => {
           <Box component="form" onSubmit={handleLogin} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
             <TextField 
               label="Email" 
+              name="email"
               variant="outlined" 
               type="email" 
               required 
             />
             <TextField 
               label="Senha" 
+              name ="password"
               variant="outlined" 
               type="password" 
               required 
