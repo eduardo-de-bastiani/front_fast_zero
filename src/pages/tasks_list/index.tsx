@@ -20,9 +20,14 @@ const TasksList: React.FC = () => {
     // https://developer.mozilla.org/en-US/docs/Glossary/IIFE
     // effects não podem ser async, então tem que fazer gambiarra
     (async () => {
-      const tasks = await TaskService.listTasks();
-      setTasks(tasks);
-      setIsFetchingTasks(false);
+      try {
+        const tasks = await TaskService.listTasks();
+        setTasks(tasks);
+      } catch (error) {
+        console.error("Error fetching tasks:", error);
+      } finally {
+        setIsFetchingTasks(false);
+      }
     })();
   }, []);
 

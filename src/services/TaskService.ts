@@ -1,24 +1,47 @@
 import { Task } from "../types/task";
 
+interface TaskFilters {
+  title?: string;
+  description?: string;
+  state?: string;
+  offset?: number;
+  limit?: number;
+}
+
 class TaskService {
-  async listTasks(): Promise<Task[]> {
-    return [
-      {
-        title: "Task 1",
-        description: "Description of task 1",
-        state: "To Do",
-      },
-      {
-        title: "Task 2",
-        description: "Description of task 2",
-        state: "Doing",
-      },
-      {
-        title: "Task 3",
-        description: "Description of task 3",
-        state: "Done",
-      },
-    ];
+  async listTasks(filters?: TaskFilters): Promise<Task[]> {
+    try{
+      const token = localStorage.getItem('token');
+      const queryParams = new URLSearchParams();
+      if (filters) {
+        if (filters.title) queryParams.append("title", filters.title);
+        if (filters.description) queryParams.append("description", filters.description);
+        if (filters.state) queryParams.append("state", filters.state);
+        if (filters.offset !== undefined) queryParams.append("offset", String(filters.offset));
+        if (filters.limit !== undefined) queryParams.append("limit", String(filters.limit));
+      }
+
+      const url = `http://localhost:8000/tasks${queryParams.toString() ? "?" + queryParams.toString() : ""}`;
+
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? {"Authorization": `Bearer ${token}`} : {}),
+        },
+      });
+
+      if (!response.ok){
+        const errorBody = await response.text();
+        console.error("Error response:", errorBody);
+        throw new Error(`Error while listing tasks: ${response.statusText}`);
+      }
+      const data = await response.json();
+      return data.tasks; 
+    } catch (error: unknown) {
+      console.error("Error while listing tasks:", error);
+      throw error;
+    }
   }
 
 async newTask(task: Task): Promise<Task> {
