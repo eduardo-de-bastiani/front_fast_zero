@@ -21,8 +21,8 @@ class TaskService {
     ];
   }
 
-  async newTask(task: Task): Promise<Task> {
-    // lógica de envio de tarefa para o back
+async newTask(task: Task): Promise<Task> {
+    
     try{
       const token = localStorage.getItem('token');
       const response = await fetch("https://localhost:8000/tasks", {
