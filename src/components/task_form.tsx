@@ -86,10 +86,10 @@ const TaskForm: React.FC<TaskFormProps> = ({ onSubmit }) => {
           label="Estado"
           name="state"
         >
-          <MenuItem value="Draft">Draft</MenuItem>
-          <MenuItem value="To Do">To Do</MenuItem>
-          <MenuItem value="Doing">Doing</MenuItem>
-          <MenuItem value="Done">Done</MenuItem>
+          <MenuItem value="draft">Draft</MenuItem>
+          <MenuItem value="todo">To Do</MenuItem>
+          <MenuItem value="doing">Doing</MenuItem>
+          <MenuItem value="done">Done</MenuItem>
         </Select>
       </FormControl>
 

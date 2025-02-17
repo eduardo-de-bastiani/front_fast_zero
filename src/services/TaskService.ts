@@ -25,7 +25,7 @@ async newTask(task: Task): Promise<Task> {
     
     try{
       const token = localStorage.getItem('token');
-      const response = await fetch("https://localhost:8000/tasks", {
+      const response = await fetch("http://localhost:8000/tasks", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
