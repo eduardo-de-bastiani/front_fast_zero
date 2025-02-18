@@ -12,8 +12,8 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { Link, useNavigate } from 'react-router-dom';
-import UserService from "../services/UserService";
-import { login } from '../services/LoginService';
+import UserService from "../services/user_service";
+import { login } from '../services/login_service';
 
 const CreateAccount: React.FC = () => {
 	const [username, setUsername] = useState("");
