@@ -47,7 +47,7 @@ const Login: React.FC = () => {
               required 
             />
             <TextField 
-              label="Senha" 
+              label="Password" 
               name ="password"
               variant="outlined" 
               type="password" 
