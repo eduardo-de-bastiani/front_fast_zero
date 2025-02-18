@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { login } from "../services/login_service";
+import { login } from "../services/loginService";
 import { Container, TextField, Button, Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import user_service from "../services/userService";
 
 const Login: React.FC = () => {
 	const [error, setError] = useState<string>("");
 	const [success, setSuccess] = useState<boolean>(false);
+	const [username, setUsername] = useState<string>("");
 	const navigate = useNavigate();
 
 	const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -24,6 +26,14 @@ const Login: React.FC = () => {
 		try {
 			await login(String(email), String(password));
 			setSuccess(true);
+
+			// busca o username
+			const username = await user_service.getUsername();
+			setUsername(username);
+
+			localStorage.setItem("username", username);
+
+			// navega para a lista de tasks
 			navigate("/app");
 		} catch (err: unknown) {
 			const errorMessage =

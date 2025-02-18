@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 // obviamente tipos precisam ficar antes dos services
 import type { Task } from "../../types/task";
 
-import TaskService from "../../services/task_service";
+import TaskService from "../../services/taskService";
 
 import classes from "./sytles.module.css";
 
