@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Container, Typography } from "@mui/material";
 import TaskForm from "../components/task_form";
 import { useNavigate } from "react-router-dom";
-import TaskService from "../services/task_service";
+import TaskService from "../services/taskService";
 import { TaskFormData, Task } from "../types/task";
 
 const NewTask: React.FC = () => {

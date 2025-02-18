@@ -7,17 +7,17 @@ import SideBar from "../components/sidebar";
 
 const AppLayout: React.FC = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState<string>("");
 
   useEffect(() => {
-    const storedUsername = localStorage.getItem('username');
+    const storedUsername = localStorage.getItem("username");
     if (storedUsername) {
       setUsername(storedUsername);
-    }
-    else{
-      setUsername("Unknown");
+    } else{
+      setUsername("Unknown")
     }
   }, []);
+
 
   return (
     <div>
