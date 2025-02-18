@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { login } from "../services/login_service";
 import { Container, TextField, Button, Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import user_service from "../services/user_service";
 
 const Login: React.FC = () => {
 	const [error, setError] = useState<string>("");
@@ -23,6 +24,12 @@ const Login: React.FC = () => {
 		}
 		try {
 			await login(String(email), String(password));
+
+			const userData = await user_service.getCurrentUser();
+			if (userData) {
+				localStorage.setItem("username", userData.username); // Salva apenas o username
+			}
+
 			setSuccess(true);
 			navigate("/app");
 		} catch (err: unknown) {
