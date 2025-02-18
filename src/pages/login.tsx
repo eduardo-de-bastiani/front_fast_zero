@@ -1,20 +1,23 @@
 import React, { useState } from "react";
+import {InputAdornment, IconButton } from "@mui/material"
 import { login } from "../services/loginService";
 import { Container, TextField, Button, Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import user_service from "../services/userService";
 
 const Login: React.FC = () => {
 	const [error, setError] = useState<string>("");
 	const [success, setSuccess] = useState<boolean>(false);
 	const [username, setUsername] = useState<string>("");
+	const [showPassword, setShowPassword] = useState(false);
 	const navigate = useNavigate();
 
 	const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		setError("");
 		setSuccess(false);
-
 		const form = new FormData(event.currentTarget);
 		const email = form.get("email");
 		const password = form.get("password");
@@ -42,6 +45,10 @@ const Login: React.FC = () => {
 		}
 	};
 
+	const handleClickShowPassword = () => {
+		setShowPassword((prev) => !prev);
+	};
+
 	return (
 		<Container maxWidth="sm" sx={{ mt: 10 }}>
 			<Typography variant="h4" align="center" gutterBottom>
@@ -63,8 +70,19 @@ const Login: React.FC = () => {
 					label="Password"
 					name="password"
 					variant="outlined"
-					type="password"
+					type={showPassword ? "text" : "password"}
 					required
+					slotProps={{
+						input: {
+							endAdornment: (
+								<InputAdornment position="end">
+									<IconButton onClick={handleClickShowPassword} edge="end">
+										{showPassword ? <VisibilityOff /> : <Visibility />}
+									</IconButton>
+								</InputAdornment>
+							),
+						},
+					}}
 				/>
 				<Button variant="contained" type="submit">
 					Login
