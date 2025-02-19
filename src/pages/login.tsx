@@ -27,17 +27,15 @@ const Login: React.FC = () => {
 			return;
 		}
 		try {
-			await login(String(email), String(password));
-
-			const userData = await user_service.getCurrentUser();
-			if (userData) {
-				localStorage.setItem("username", userData.username); // Salva apenas o username
-			}
+			await login(String(email), String(password));			
 
 			setSuccess(true);
 
 			// busca o username
-			const username = await user_service.getUsername();
+			const username = await userService.getUsername();
+			if (username) {
+				localStorage.setItem("username", username); // Salva apenas o username
+			}
 			setUsername(username);
 
 			localStorage.setItem("username", username);
