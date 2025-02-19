@@ -89,6 +89,7 @@ interface TasksProps {
 }
 
 const Tasks: React.FC<TasksProps> = ({ tasks, onChangeTaskState }) => {
+  const draftTasks = tasks.filter((task) => task.state === "Draft");
   const todoTasks = tasks.filter((task) => task.state === "To Do");
   const doingTasks = tasks.filter((task) => task.state === "Doing");
   const doneTasks = tasks.filter((task) => task.state === "Done");
@@ -100,12 +101,19 @@ const Tasks: React.FC<TasksProps> = ({ tasks, onChangeTaskState }) => {
           const title = e.active.id as string;
           const target = e.over?.id;
 
-          if (target !== "To Do" && target !== "Doing" && target !== "Done")
+          if (target !== "Draft" && target !== "To Do" && target !== "Doing" && target !== "Done")
             return;
 
           onChangeTaskState(title, target);
         }}
       >
+        <Droppable title="Draft">
+          {draftTasks.map((task, index) => (
+            // TODO: Usar o id das tasks como key, atualizar os tipos e todo o resto
+            <TaskComp key={index} task={task} />
+          ))}
+        </Droppable>
+
         <Droppable title="To Do">
           {todoTasks.map((task, index) => (
             // TODO: Usar o id das tasks como key, atualizar os tipos e todo o resto
