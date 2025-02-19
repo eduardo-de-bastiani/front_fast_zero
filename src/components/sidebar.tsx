@@ -77,11 +77,11 @@ const SideBar: React.FC<SideBarProps> = ({ open, onOpen, onClose }) => {
           {/* Filtro por Estado */}
           <FormControl fullWidth sx={{ mb: 2 }}>
             <InputLabel id="state-filter-label" shrink={true}>
-              Estado
+              State
             </InputLabel>
             <Select
               labelId="state-filter-label"
-              label="Estado"
+              label="State"
               value={stateFilter}
               onChange={(e) => setStateFilter(e.target.value)}
               displayEmpty

@@ -56,37 +56,36 @@ class UserService {
       }
     }
   
-    //TODO: AJUSTAR A FUNCAO
 
-    // async updateUser(data: { username: string; email: string; password?: string }): Promise<User> {
-    //   try {
-    //     const token = localStorage.getItem("token");
-    //     // Suponha que você obtenha o id do usuário do getUser ou do token
-    //     const userData = await this.getUser();
-    //     const userId = userData.id;
+    async updateUser(data: { username: string; email: string; password?: string }): Promise<User> {
+      try {
+        const token = localStorage.getItem("token");
         
-    //     const response = await fetch(`http://localhost:8000/users/${userId}`, {
-    //       method: "PUT",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //         ...(token ? { "Authorization": `Bearer ${token}` } : {}),
-    //       },
-    //       body: JSON.stringify(data),
-    //     });
+        const user = await this.getUser();
+        const userId = user.id;
+        
+        const response = await fetch(`http://localhost:8000/users/${userId}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            ...(token ? { "Authorization": `Bearer ${token}` } : {}),
+          },
+          body: JSON.stringify(data),
+        });
   
-    //     if (!response.ok) {
-    //       const errorBody = await response.json();
-    //       throw new Error(errorBody.detail || "Error while updating user");
-    //     }
+        if (!response.ok) {
+          const errorBody = await response.json();
+          throw new Error(errorBody.detail || "Error while updating user");
+        }
   
-    //     const updatedUser = await response.json();
-    //     return updatedUser;
-    //   } catch (error: unknown) {
-    //     const errorMessage = error instanceof Error ? error.message : "Network error.";
-    //     console.error("Error while updating user:", errorMessage);
-    //     throw new Error(errorMessage);
-    //   }
-    // }
+        const updatedUser = await response.json();
+        return updatedUser;
+      } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : "Network error.";
+        console.error("Error while updating user:", errorMessage);
+        throw new Error(errorMessage);
+      }
+    }
   }
 
 export default new UserService();
