@@ -32,13 +32,12 @@ const Login: React.FC = () => {
 			setSuccess(true);
 
 			// busca o username
-			const username = await userService.getUsername();
-			if (username) {
+			const user = await userService.getUser();
+			if (user) {
+				const username = user.username
 				localStorage.setItem("username", username); // Salva apenas o username
 			}
 			setUsername(username);
-
-			localStorage.setItem("username", username);
 
 			// navega para a lista de tasks
 			navigate("/app");

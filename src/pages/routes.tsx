@@ -16,7 +16,7 @@ const Router: React.FC = () => {
 				<Route path="/app" element={<AppLayout />}>
 					<Route index element={<TasksList />} />
 					<Route path="new" element={<NewTask />} />
-					{/*<Route path="/account" element={<Account />} />*/}
+					{/* <Route path="account" element={<Account />} /> */}
 				</Route>
 			</Routes>
 		</BrowserRouter>
