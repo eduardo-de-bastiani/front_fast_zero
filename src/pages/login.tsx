@@ -5,7 +5,7 @@ import { Container, TextField, Button, Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import user_service from "../services/userService";
+import userService from "../services/userService";
 
 const Login: React.FC = () => {
 	const [error, setError] = useState<string>("");
