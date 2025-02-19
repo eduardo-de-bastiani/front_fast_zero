@@ -11,28 +11,7 @@ import TaskService from "../../services/taskService";
 import classes from "./sytles.module.css";
 
 const TasksList: React.FC = () => {
-  const [tasks, setTasks] = useState<Task[]>([
-    {
-      title: "Task 1",
-      description: "Description 1",
-      state: "To Do",
-    },
-    {
-      title: "Task 2",
-      description: "Description 2",
-      state: "Doing",
-    },
-    {
-      title: "Task 3",
-      description: "Description 3",
-      state: "Done",
-    },
-    {
-      title: "Task 4",
-      description: "Description 4",
-      state: "To Do",
-    },
-  ]);
+  const [tasks, setTasks] = useState<Task[]>([]);
   const [isFetchingTasks, setIsFetchingTasks] = useState(false);
 
   function handleChangeTaskState(taskTitle: string, state: TaskState) {
@@ -89,10 +68,10 @@ interface TasksProps {
 }
 
 const Tasks: React.FC<TasksProps> = ({ tasks, onChangeTaskState }) => {
-  const draftTasks = tasks.filter((task) => task.state === "Draft");
-  const todoTasks = tasks.filter((task) => task.state === "To Do");
-  const doingTasks = tasks.filter((task) => task.state === "Doing");
-  const doneTasks = tasks.filter((task) => task.state === "Done");
+  const draftTasks = tasks.filter((task) => task.state === "draft");
+  const todoTasks = tasks.filter((task) => task.state === "todo");
+  const doingTasks = tasks.filter((task) => task.state === "doing");
+  const doneTasks = tasks.filter((task) => task.state === "done");
 
   return (
     <div className={classes.task_list_container}>
@@ -101,7 +80,7 @@ const Tasks: React.FC<TasksProps> = ({ tasks, onChangeTaskState }) => {
           const title = e.active.id as string;
           const target = e.over?.id;
 
-          if (target !== "Draft" && target !== "To Do" && target !== "Doing" && target !== "Done")
+          if (target !== "draft" && target !== "todo" && target !== "doing" && target !== "done")
             return;
 
           onChangeTaskState(title, target);

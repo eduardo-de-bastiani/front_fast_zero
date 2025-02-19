@@ -1,4 +1,4 @@
-export type TaskState = "Draft" | "To Do" | "Doing" | "Done";
+export type TaskState = "draft" | "todo" | "doing" | "done";
 
 export interface Task {
   title: string;
