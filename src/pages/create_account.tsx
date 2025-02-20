@@ -58,21 +58,22 @@ const CreateAccount: React.FC = () => {
 
 	return (
 		<Container maxWidth="sm" sx={{ mt: 10 }}>
-			{/* Cabeçalho com botão "Voltar" e título */}
-			<Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
+			{/* Botão de voltar, alinhado à direita */}
+			<Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2 }}>
 				<Button
-					component={Link}
-					to="/login"
 					variant="outlined"
 					startIcon={<ArrowBackIosNewIcon />}
-					sx={{ mr: 2 }}
+					component={Link}
+					to="/login"
 				>
 					Back to Login
 				</Button>
-				<Typography variant="h4" gutterBottom>
-					Create Account
-				</Typography>
 			</Box>
+
+			{/* Título centralizado */}
+			<Typography variant="h4" align="center" gutterBottom>
+				Create Account
+			</Typography>
 
 			<Box
 				component="form"
