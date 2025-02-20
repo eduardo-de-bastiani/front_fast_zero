@@ -63,6 +63,12 @@ class UserService {
         
         const user = await this.getUser();
         const userId = user.id;
+
+        const payload = {
+          username: data.username,
+          email: data.email,
+          password: data.password && data.password.trim() !== "" ? data.password : null,
+        };
         
         const response = await fetch(`http://localhost:8000/users/${userId}`, {
           method: "PUT",
@@ -70,7 +76,7 @@ class UserService {
             "Content-Type": "application/json",
             ...(token ? { "Authorization": `Bearer ${token}` } : {}),
           },
-          body: JSON.stringify(data),
+          body: JSON.stringify(payload),
         });
   
         if (!response.ok) {

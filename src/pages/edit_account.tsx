@@ -10,7 +10,6 @@ const EditAccount: React.FC = () => {
   const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [showPassword, setShowPassword] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const [success, setSuccess] = useState<boolean>(false);
   const navigate = useNavigate();
@@ -30,9 +29,6 @@ const EditAccount: React.FC = () => {
     fetchUserData();
   }, []);
 
-  const handleClickShowPassword = () => {
-    setShowPassword(prev => !prev);
-  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -40,15 +36,16 @@ const EditAccount: React.FC = () => {
     setSuccess(false);
     
     try {
-      // Se o campo de senha estiver vazio, enviamos undefined para não alterar a senha
       const updatedUser = await UserService.updateUser({
         username,
         email,
-        password: password.trim() === "" ? undefined : password,
+        password,
       });
       localStorage.setItem("username", username);
       setSuccess(true);
-      
+
+      navigate('/app')
+
     } catch (err: unknown) {
       const errorMessage = err instanceof Error ? err.message : "Network error.";
       setError(errorMessage);
@@ -93,21 +90,10 @@ const EditAccount: React.FC = () => {
         <TextField
           label="Password"
           variant="outlined"
-          type={showPassword ? "text" : "password"}
+          type={password}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Fill to change password"
-          slotProps={{
-            input: {
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton onClick={handleClickShowPassword} edge="end">
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            },
-          }}
         />
         {error && (
           <Typography variant="body2" color="error">

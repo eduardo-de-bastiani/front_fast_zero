@@ -8,6 +8,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { IconButton } from "@mui/material";
+import { useNavigate } from "react-router-dom"; 
 import theme from "../theme";
 
 interface NavbarProps {
@@ -17,6 +18,7 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ username, onOpenSideBar }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const navigate = useNavigate();
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -25,6 +27,25 @@ const Navbar: React.FC<NavbarProps> = ({ username, onOpenSideBar }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleEditProfile = () => {
+    handleClose();
+    navigate("/app/edit_account");
+  };
+
+  const handleLogout = () => {
+    handleClose();
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    navigate("/login");
+  };
+
+  const handleDeleteAccount = () => {
+    handleClose();
+    // Lógica para exclusão de conta
+    navigate("/delete_account");
+  };
+
 
   return (
     <Toolbar
@@ -68,9 +89,9 @@ const Navbar: React.FC<NavbarProps> = ({ username, onOpenSideBar }) => {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <MenuItem onClick={handleClose}>Edit Profile</MenuItem>
-          <MenuItem onClick={handleClose}>Logout</MenuItem>
-          <MenuItem onClick={handleClose}>Delete Account</MenuItem>
+          <MenuItem onClick={handleEditProfile}>Edit Profile</MenuItem>
+          <MenuItem onClick={handleLogout}>Logout</MenuItem>
+          <MenuItem onClick={handleDeleteAccount}>Delete Account</MenuItem>
         </Menu>
       </div>
     </Toolbar>
