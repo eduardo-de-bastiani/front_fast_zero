@@ -11,7 +11,7 @@ import {
   Typography
 } from '@mui/material';
 
-type TaskState = 'Draft' | 'To Do' | 'Doing' | 'Done';
+type TaskState = 'draft' | 'todo' | 'doing' | 'done';
 
 interface TaskFormData {
   title: string;
@@ -27,7 +27,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ onSubmit }) => {
   const [formData, setFormData] = useState<TaskFormData>({
     title: '',
     description: '',
-    state: 'Draft'
+    state: 'draft'
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -52,7 +52,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ onSubmit }) => {
   return (
     <Box component="form" onSubmit={handleSubmit} sx={{ maxWidth: 500, mx: 'auto', p: 2 }}>
       <Typography variant="h6" gutterBottom>
-        Nova Tarefa
+        New Task
       </Typography>
 
       <FormControl fullWidth sx={{ mb: 2 }}>
