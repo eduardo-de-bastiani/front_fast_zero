@@ -5,6 +5,7 @@ import AppLayout from "./app_layout";
 import NewTask from "./new_task";
 import Login from "./login";
 import CreateAccount from "./create_account";
+import EditAccount from "./edit_account";
 
 const Router: React.FC = () => {
 	return (
@@ -16,7 +17,7 @@ const Router: React.FC = () => {
 				<Route path="/app" element={<AppLayout />}>
 					<Route index element={<TasksList />} />
 					<Route path="new" element={<NewTask />} />
-					{/* <Route path="account" element={<Account />} /> */}
+					<Route path="edit_account" element={<EditAccount />} />
 				</Route>
 			</Routes>
 		</BrowserRouter>

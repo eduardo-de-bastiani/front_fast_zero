@@ -42,6 +42,8 @@ const CreateAccount: React.FC = () => {
 			// faz login automatico
 			await login(email, password);
 
+			localStorage.setItem("username", username);
+
 			navigate("/app");
 		} catch (err: unknown) {
 			const errorMessage =

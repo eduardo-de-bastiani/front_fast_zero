@@ -34,10 +34,9 @@ const Login: React.FC = () => {
 			// busca o username
 			const user = await userService.getUser();
 			if (user) {
-				const username = user.username
-				localStorage.setItem("username", username); // Salva apenas o username
+				localStorage.setItem("username", user.username); // Salva apenas o username
 			}
-			setUsername(username);
+			setUsername(user.username);
 
 			// navega para a lista de tasks
 			navigate("/app");
