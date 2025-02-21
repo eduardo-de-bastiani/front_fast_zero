@@ -6,6 +6,7 @@ import NewTask from "./new_task";
 import Login from "./login";
 import CreateAccount from "./create_account";
 import EditAccount from "./edit_account";
+import DeleteAccount from "./delete_account";
 
 const Router: React.FC = () => {
 	return (
@@ -18,6 +19,7 @@ const Router: React.FC = () => {
 					<Route index element={<TasksList />} />
 					<Route path="new" element={<NewTask />} />
 					<Route path="edit_account" element={<EditAccount />} />
+					<Route path="delete_account" element={<DeleteAccount />} />
 				</Route>
 			</Routes>
 		</BrowserRouter>

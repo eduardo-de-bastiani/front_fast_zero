@@ -42,8 +42,7 @@ const Navbar: React.FC<NavbarProps> = ({ username, onOpenSideBar }) => {
 
   const handleDeleteAccount = () => {
     handleClose();
-    // Lógica para exclusão de conta
-    navigate("/delete_account");
+    navigate("/app/delete_account");
   };
 
 

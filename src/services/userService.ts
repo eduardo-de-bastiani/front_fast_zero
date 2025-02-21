@@ -92,6 +92,37 @@ class UserService {
         throw new Error(errorMessage);
       }
     }
+
+    async deleteUser(): Promise<{ message: string }> {
+      try{
+        const token = localStorage.getItem("token");
+
+        const user = await this.getUser();
+        const userId = user.id;
+
+        const response = await fetch(`http://localhost:8000/users/${userId}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            ...(token ? { "Authorization": `Bearer ${token}` } : {}),
+          },
+        });
+
+        if (!response.ok){
+          const data = await response.json();
+          throw new Error(data.detail || "Error while deleting user");
+        }
+
+        const result = await response.json();
+        return result;
+
+      } catch (error: unknown){
+        const errorMessage = error instanceof Error ? error.message : "Network error.";
+        console.error("Error while deleting user:", errorMessage);
+        throw new Error(errorMessage);
+      }
+
+    }
   }
 
 export default new UserService();
