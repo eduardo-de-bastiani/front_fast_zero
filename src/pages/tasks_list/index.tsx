@@ -86,28 +86,28 @@ const Tasks: React.FC<TasksProps> = ({ tasks, onChangeTaskState }) => {
           onChangeTaskState(title, target);
         }}
       >
-        <Droppable title="Draft">
+        <Droppable title="draft">
           {draftTasks.map((task, index) => (
             // TODO: Usar o id das tasks como key, atualizar os tipos e todo o resto
             <TaskComp key={index} task={task} />
           ))}
         </Droppable>
 
-        <Droppable title="To Do">
+        <Droppable title="todo">
           {todoTasks.map((task, index) => (
             // TODO: Usar o id das tasks como key, atualizar os tipos e todo o resto
             <TaskComp key={index} task={task} />
           ))}
         </Droppable>
 
-        <Droppable title="Doing">
+        <Droppable title="doing">
           {doingTasks.map((task, index) => (
             // TODO: aqui tb
             <TaskComp key={index} task={task} />
           ))}
         </Droppable>
 
-        <Droppable title="Done">
+        <Droppable title="done">
           {doneTasks.map((task, index) => (
             // TODO: e aqui
             <TaskComp key={index} task={task} />
