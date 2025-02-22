@@ -44,8 +44,7 @@ class TaskService {
     }
   }
 
-async newTask(task: Task): Promise<Task> {
-    
+async newTask(taskData: Omit<Task, 'id'>): Promise<Task> {
     try{
       const token = localStorage.getItem('token');
       const response = await fetch("http://localhost:8000/tasks", {
@@ -54,7 +53,7 @@ async newTask(task: Task): Promise<Task> {
           "Content-Type": "application/json",
           ...(token ? {"Authorization": `Bearer ${token}`} : {}),
         },
-        body: JSON.stringify(task)
+        body: JSON.stringify(taskData)
       });
 
       if (!response.ok){
@@ -69,8 +68,6 @@ async newTask(task: Task): Promise<Task> {
       throw error;
     }
   }
-
-  
 }
 
 export default new TaskService();

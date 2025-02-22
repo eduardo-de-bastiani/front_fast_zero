@@ -31,9 +31,9 @@ const TasksList: React.FC = () => {
 
 
 
-  function handleChangeTaskState(taskTitle: string, state: TaskState) {
+  function handleChangeTaskState(taskId: string, state: TaskState) {
     const newTasks = tasks.map((t) => {
-      if (t.title === taskTitle) {
+      if (t.id === taskId) {
         return { ...t, state };
       }
       return t;
@@ -76,40 +76,36 @@ const Tasks: React.FC<TasksProps> = ({ tasks, onChangeTaskState }) => {
     <div className={classes.task_list_container}>
       <DndContext
         onDragEnd={(e) => {
-          const title = e.active.id as string;
+          const taskId = e.active.id as string
           const target = e.over?.id;
 
           if (target !== "draft" && target !== "todo" && target !== "doing" && target !== "done")
             return;
 
-          onChangeTaskState(title, target);
+          onChangeTaskState(taskId, target);
         }}
       >
         <Droppable title="draft">
-          {draftTasks.map((task, index) => (
-            // TODO: Usar o id das tasks como key, atualizar os tipos e todo o resto
-            <TaskComp key={index} task={task} />
+          {draftTasks.map((task) => (
+            <TaskComp key={task.id} task={task} />
           ))}
         </Droppable>
 
         <Droppable title="todo">
-          {todoTasks.map((task, index) => (
-            // TODO: Usar o id das tasks como key, atualizar os tipos e todo o resto
-            <TaskComp key={index} task={task} />
+          {todoTasks.map((task) => (
+            <TaskComp key={task.id} task={task} />
           ))}
         </Droppable>
 
         <Droppable title="doing">
-          {doingTasks.map((task, index) => (
-            // TODO: aqui tb
-            <TaskComp key={index} task={task} />
+          {doingTasks.map((task) => (
+            <TaskComp key={task.id} task={task} />
           ))}
         </Droppable>
 
         <Droppable title="done">
-          {doneTasks.map((task, index) => (
-            // TODO: e aqui
-            <TaskComp key={index} task={task} />
+          {doneTasks.map((task) => (
+            <TaskComp key={task.id} task={task} />
           ))}
         </Droppable>
       </DndContext>
@@ -147,7 +143,7 @@ interface TaskProps {
 
 const TaskComp: React.FC<TaskProps> = ({ task }) => {
   const { setNodeRef, transform, listeners, attributes } = useDraggable({
-    id: task.title,
+    id: task.id,
   });
 
   const style = transform

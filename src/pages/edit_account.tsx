@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Container, TextField, Button, Box, Typography, IconButton, InputAdornment } from "@mui/material";
+import { Container, TextField, Button, Box, Typography } from "@mui/material";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useNavigate } from "react-router-dom";
 import UserService from "../services/userService";
 
@@ -36,7 +34,7 @@ const EditAccount: React.FC = () => {
     setSuccess(false);
     
     try {
-      const updatedUser = await UserService.updateUser({
+      await UserService.updateUser({
         username,
         email,
         password,
