@@ -24,6 +24,8 @@ interface SideBarProps {
 	onResetFilters: () => void;
 }
 
+const SIDEBAR_WIDTH = 450;
+
 const SideBar: React.FC<SideBarProps> = ({
 	open,
 	toggle,
@@ -68,7 +70,11 @@ const SideBar: React.FC<SideBarProps> = ({
 
 	return (
 		<>
-			<ToggleSidebarButton open={open} onToggle={toggle} sidebarWidth={300} />
+			<ToggleSidebarButton
+				open={open}
+				onToggle={toggle}
+				sidebarWidth={SIDEBAR_WIDTH}
+			/>
 
 			<Drawer
 				anchor="left"
@@ -76,7 +82,7 @@ const SideBar: React.FC<SideBarProps> = ({
 				onClose={onClose}
 				sx={{
 					"& .MuiDrawer-paper": {
-						width: 300,
+						width: SIDEBAR_WIDTH,
 						padding: 2,
 						backgroundColor: "background.paper",
 					},
@@ -84,9 +90,13 @@ const SideBar: React.FC<SideBarProps> = ({
 			>
 				<Box display="flex" justifyContent="space-between" alignItems="center">
 					<Typography variant="h6">Custom Filters</Typography>
-					<IconButton onClick={onClose} aria-label="Close Filters">
-						<CloseIcon />
-					</IconButton>
+					<Button
+						variant="outlined"
+						onClick={handleResetFilters}
+						disabled={!filtersApplied}
+					>
+						Reset Filters
+					</Button>
 				</Box>
 
 				<Box
@@ -162,14 +172,6 @@ const SideBar: React.FC<SideBarProps> = ({
 
 					{/* Botões de Reset e Apply */}
 					<Box sx={{ display: "flex", gap: 2, mt: 1 }}>
-						<Button
-							variant="outlined"
-							fullWidth
-							onClick={handleResetFilters}
-							disabled={!filtersApplied}
-						>
-							Reset Filters
-						</Button>
 						<Button
 							variant="contained"
 							color="primary"
