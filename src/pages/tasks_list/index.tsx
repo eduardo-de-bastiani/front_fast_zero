@@ -156,15 +156,16 @@ const Droppable: React.FC<DroppableProps> = ({ children, title }) => {
 		id: title,
 	});
 
-	const style = {
-		backgroundColor: isOver ? theme.palette.grey[800] : theme.palette.grey[900],
-	};
-
 	return (
-		<div>
+		<div className={classes.column}>
 			<h3>{title}</h3>
-			<ul style={style} ref={setNodeRef}>
-				{children}
+			<ul
+				ref={setNodeRef}
+				style={{
+					backgroundColor: isOver ? "rgba(81, 45, 168, 0.1)" : "transparent",
+				}}
+			>
+				<div className={classes.scrollContent}>{children}</div>
 			</ul>
 		</div>
 	);
@@ -187,13 +188,11 @@ const TaskComp: React.FC<TaskProps> = ({ task }) => {
 				transition: "transform 0.2s ease-in",
 			};
 
-	// faz isso ficar bonito
 	return (
 		<li
 			style={{
 				...style,
-				borderColor: theme.palette.primary.dark,
-				backgroundColor: `color-mix(in srgb, ${theme.palette.primary.dark} 25%, transparent)`,
+				cursor: transform ? "grabbing" : "grab",
 			}}
 			ref={setNodeRef}
 			className={classes.task}
