@@ -1,25 +1,35 @@
 import { DndContext, useDraggable, useDroppable } from "@dnd-kit/core";
 import { useState, useEffect } from "react";
+import { useOutletContext } from "react-router-dom";
 import { Add } from "@mui/icons-material";
 import { Link } from "react-router-dom";
-
-// obviamente tipos precisam ficar antes dos services
-import type { Task, TaskState } from "../../types/task";
-
+import type { Task, TaskState, TaskFilters } from "../../types/task";
 import TaskService from "../../services/taskService";
-
 import classes from "./sytles.module.css";
 
-const stateMapping: { [key: string]: string } = {
-  draft: "Draft",
-  todo: "To Do",
-  doing: "Doing",
-  done: "Done",
-};
-
 const TasksList: React.FC = () => {
+  const { currentFilters } = useOutletContext<{ currentFilters: TaskFilters }>();
   const [tasks, setTasks] = useState<Task[]>([]);
   const [isFetchingTasks, setIsFetchingTasks] = useState(false);
+
+
+  useEffect(() => {
+    const fetchTasks = async () => {
+      setIsFetchingTasks(true);
+      try {
+        const tasks = await TaskService.listTasks(currentFilters);
+        setTasks(tasks);
+      } catch (error) {
+        console.error("Error fetching tasks:", error);
+      } finally {
+        setIsFetchingTasks(false);
+      }
+    };
+
+    fetchTasks();
+  }, [currentFilters]);
+
+
 
   function handleChangeTaskState(taskTitle: string, state: TaskState) {
     const newTasks = tasks.map((t) => {
@@ -31,24 +41,6 @@ const TasksList: React.FC = () => {
 
     setTasks(newTasks);
   }
-
-  useEffect(() => {
-    setIsFetchingTasks(true);
-
-    // essa coisa aqui é uma IIFE
-    // https://developer.mozilla.org/en-US/docs/Glossary/IIFE
-    // effects não podem ser async, então tem que fazer gambiarra
-    (async () => {
-      try {
-        const tasks = await TaskService.listTasks();
-        setTasks(tasks);
-      } catch (error) {
-        console.error("Error fetching tasks:", error);
-      } finally {
-        setIsFetchingTasks(false);
-      }
-    })();
-  }, []);
 
   return (
     <div>
@@ -141,7 +133,7 @@ const Droppable: React.FC<DroppableProps> = ({ children, title }) => {
 
   return (
     <div>
-      <h3>{stateMapping[title] || title}</h3>
+      <h3>{title}</h3>
       <ul style={style} ref={setNodeRef}>
         {children}
       </ul>

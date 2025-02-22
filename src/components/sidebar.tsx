@@ -12,17 +12,17 @@ import {
   Typography,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import taskService from "../services/taskService";
-import { Task, TaskFilters } from "../types/task";
+import { TaskFilters } from "../types/task";
 
 interface SideBarProps {
   open: boolean;
   onOpen: () => void;
   onClose: () => void;
-  setTasks: (tasks: Task[]) => void;
+  onApplyFilters: (filters: TaskFilters) => void;
+  onResetFilters: () => void;
 }
 
-const SideBar: React.FC<SideBarProps> = ({ open, onOpen, onClose, setTasks }) => {
+const SideBar: React.FC<SideBarProps> = ({ open, onOpen, onClose, onApplyFilters, onResetFilters }) => {
   const [title, setTitle] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [stateFilter, setStateFilter] = React.useState("");
@@ -36,42 +36,28 @@ const SideBar: React.FC<SideBarProps> = ({ open, onOpen, onClose, setTasks }) =>
     limit !== "" ||
     offset !== "";
 
+    const handleApplyFilters = async () => {
+      const filters: TaskFilters = {
+        title,
+        description,
+        state: stateFilter,
+        ...(offset && { offset: Number(offset) }),
+        ...(limit && { limit: Number(limit) }),
+      };
+      onApplyFilters(filters); // passa para o AppLayout
+      onClose();
+    };
+
     const handleResetFilters = async () => {
       setTitle("");
       setDescription("");
       setStateFilter("");
       setLimit("");
       setOffset("");
-
-      try {
-        const tasks = await taskService.listTasks({});
-        setTasks(tasks)
-
-        console.log("All tasks:", tasks);
-      } catch (error) {
-        console.error("Error resetting filters:", error);
-      }
+      onResetFilters();
     };
   
 
-  const handleApplyFilters = async () => {
-    try {
-      const filters: TaskFilters = {
-        title,
-        description,
-        state: stateFilter,
-        ...(offset && { offset: Number(offset) }),  // so envia se forem numeros
-        ...(limit && { limit: Number(limit) }),     // sao inicializados como string vazia (NaN)
-      };
-
-      const tasks = await taskService.listTasks(filters);
-      setTasks(tasks);
-      onClose(); 
-
-    } catch (error) {
-    console.error("Failed to fetch tasks:", error);
-  }
-  };
 
   return (
     <>
