@@ -10,6 +10,13 @@ import TaskService from "../../services/taskService";
 
 import classes from "./sytles.module.css";
 
+const stateMapping: { [key: string]: string } = {
+  draft: "Draft",
+  todo: "To Do",
+  doing: "Doing",
+  done: "Done",
+};
+
 const TasksList: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [isFetchingTasks, setIsFetchingTasks] = useState(false);
@@ -134,7 +141,7 @@ const Droppable: React.FC<DroppableProps> = ({ children, title }) => {
 
   return (
     <div>
-      <h3>{title}</h3>
+      <h3>{stateMapping[title] || title}</h3>
       <ul style={style} ref={setNodeRef}>
         {children}
       </ul>

@@ -58,7 +58,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ onSubmit }) => {
       <FormControl fullWidth sx={{ mb: 2 }}>
         <TextField
           required
-          label="Título"
+          label="Title"
           name="title"
           value={formData.title}
           onChange={handleChange}
@@ -68,7 +68,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ onSubmit }) => {
 
       <FormControl fullWidth sx={{ mb: 2 }}>
         <TextField
-          label="Descrição"
+          label="Description"
           name="description"
           value={formData.description}
           onChange={handleChange}
@@ -79,11 +79,11 @@ const TaskForm: React.FC<TaskFormProps> = ({ onSubmit }) => {
       </FormControl>
 
       <FormControl fullWidth sx={{ mb: 3 }}>
-        <InputLabel>Estado</InputLabel>
+        <InputLabel>State</InputLabel>
         <Select
           value={formData.state}
           onChange={handleStateChange}
-          label="Estado"
+          label="State"
           name="state"
         >
           <MenuItem value="draft">Draft</MenuItem>

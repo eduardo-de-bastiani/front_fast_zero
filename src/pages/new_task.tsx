@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Container, Typography } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import TaskForm from "../components/task_form";
 import { useNavigate } from "react-router-dom";
 import TaskService from "../services/taskService";
@@ -31,6 +32,15 @@ const NewTask: React.FC = () => {
 	return (
 		<>
 			<Container maxWidth="sm" sx={{ mt: 10 }}>
+				<Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2 }}>
+					<Button
+						variant="outlined"
+						startIcon={<ArrowBackIosNewIcon />}
+						onClick={() => navigate("/app")}
+					>
+						Back to Tasks List
+					</Button>
+				</Box>
 				<Typography variant="h4" align="center" gutterBottom>
 					New Task
 				</Typography>
