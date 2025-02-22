@@ -69,6 +69,8 @@ async newTask(task: Task): Promise<Task> {
       throw error;
     }
   }
+
+  
 }
 
 export default new TaskService();
