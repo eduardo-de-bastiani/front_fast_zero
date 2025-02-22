@@ -14,13 +14,7 @@ import theme from "../../theme";
 
 const TasksList: React.FC = () => {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
-	const [tasks, setTasks] = useState<Task[]>([
-		{
-			title: "hello",
-			state: "doing",
-			id: "213",
-		},
-	]);
+	const [tasks, setTasks] = useState<Task[]>([]);
 	const [isFetchingTasks, setIsFetchingTasks] = useState(false);
 	const [currentFilters, setCurrentFilters] = useState<TaskFilters>({});
 
