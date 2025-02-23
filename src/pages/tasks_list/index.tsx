@@ -1,7 +1,8 @@
 import { DndContext, useDraggable, useDroppable } from "@dnd-kit/core";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Add } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 import type { Task, TaskState, TaskFilters } from "../../types/task";
 
@@ -179,6 +180,27 @@ const TaskComp: React.FC<TaskProps> = ({ task }) => {
 	const { setNodeRef, transform, listeners, attributes } = useDraggable({
 		id: task.id,
 	});
+	const [showMenu, setShowMenu] = useState(false);
+  	const menuRef = useRef<HTMLDivElement>(null);
+
+	const handleMenuToggle = (e: React.MouseEvent) => {
+	e.stopPropagation();
+	e.preventDefault();
+	setShowMenu(!showMenu);
+	};
+
+	const handleClickOutside = (e: MouseEvent) => {
+	if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+		setShowMenu(false);
+	}
+	};
+
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+	useEffect(() => {
+		document.addEventListener("mousedown", handleClickOutside);
+		return () => document.removeEventListener("mousedown", handleClickOutside);
+	  }, []);
+
 
 	const style = transform
 		? {
@@ -190,19 +212,42 @@ const TaskComp: React.FC<TaskProps> = ({ task }) => {
 
 	return (
 		<li
-			style={{
-				...style,
-				cursor: transform ? "grabbing" : "grab",
-			}}
-			ref={setNodeRef}
-			className={classes.task}
-			{...listeners}
-			{...attributes}
-		>
-			<h4>{task.title}</h4>
-			<p>{task.description}</p>
-			<p>{task.state}</p>
-		</li>
+      style={{
+        ...style,
+        cursor: transform ? "grabbing" : "grab",
+      }}
+      ref={setNodeRef}
+      className={classes.task}
+      {...attributes}
+    >
+      {/* Área arrastável */}
+      <div className={classes.dragArea} {...listeners}>
+        <h4>{task.title}</h4>
+        <p>{task.description}</p>
+        <p>{task.state}</p>
+      </div>
+
+      {/* Botão de menu (não arrastável) */}
+      {/* biome-ignore lint/a11y/useButtonType: <explanation> */}
+      <button 
+        onClick={handleMenuToggle}
+        className={classes.menuButton}
+        aria-label="Task options"
+      >
+        •••
+      </button>
+
+      {showMenu && (
+        <div ref={menuRef} className={classes.optionsMenu}>
+          {/* biome-ignore lint/a11y/useButtonType: <explanation> */}
+          <button className={classes.menuItem}>Edit</button>
+          {/* biome-ignore lint/a11y/useButtonType: <explanation> */}
+          <button className={`${classes.menuItem} ${classes.deleteButton}`}>
+            Delete
+          </button>
+        </div>
+      )}
+    </li>
 	);
 };
 
