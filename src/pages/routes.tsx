@@ -7,6 +7,7 @@ import Login from "./login";
 import CreateAccount from "./create_account";
 import EditAccount from "./edit_account";
 import DeleteAccount from "./delete_account";
+import EditTask from "./edit_task";
 import ProtectedRoute from "../components/protected_route";
 
 const Router: React.FC = () => {
@@ -24,6 +25,7 @@ const Router: React.FC = () => {
 						<Route path="new" element={<NewTask />} />
 						<Route path="edit_account" element={<EditAccount />} />
 						<Route path="delete_account" element={<DeleteAccount />} />
+						<Route path="edit_task/:taskId" element={<EditTask />}/>
 					</Route>
 				</Route>
 

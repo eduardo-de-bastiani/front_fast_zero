@@ -1,8 +1,7 @@
 import { DndContext, useDraggable, useDroppable } from "@dnd-kit/core";
 import { useState, useEffect, useRef } from "react";
 import { Add } from "@mui/icons-material";
-import { Link } from "react-router-dom";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { Link, useNavigate } from "react-router-dom";
 
 import type { Task, TaskState, TaskFilters } from "../../types/task";
 
@@ -43,6 +42,7 @@ const TasksList: React.FC = () => {
 		fetchTasks();
 	}, [currentFilters]);
 
+	// TODO: aplicar servico de updateTask
 	function handleChangeTaskState(taskId: string, state: TaskState) {
 		const newTasks = tasks.map((t) => {
 			if (t.id === taskId) {
@@ -182,6 +182,7 @@ const TaskComp: React.FC<TaskProps> = ({ task }) => {
 	});
 	const [showMenu, setShowMenu] = useState(false);
   	const menuRef = useRef<HTMLDivElement>(null);
+	const navigate = useNavigate();
 
 	const handleMenuToggle = (e: React.MouseEvent) => {
 	e.stopPropagation();
@@ -194,6 +195,12 @@ const TaskComp: React.FC<TaskProps> = ({ task }) => {
 		setShowMenu(false);
 	}
 	};
+
+	const handleEdit = (e: React.MouseEvent) => {
+		e.stopPropagation();
+		// Redireciona para a página de edição da task, passando o id da task
+		navigate(`/app/edit_task/${task.id}`);
+	  };
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
@@ -240,7 +247,9 @@ const TaskComp: React.FC<TaskProps> = ({ task }) => {
       {showMenu && (
         <div ref={menuRef} className={classes.optionsMenu}>
           {/* biome-ignore lint/a11y/useButtonType: <explanation> */}
-          <button className={classes.menuItem}>Edit</button>          
+          <button className={classes.menuItem} onClick={handleEdit}>
+			Edit
+			</button>          
         </div>
       )}
     </li>
