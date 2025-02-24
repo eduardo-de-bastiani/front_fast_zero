@@ -240,11 +240,7 @@ const TaskComp: React.FC<TaskProps> = ({ task }) => {
       {showMenu && (
         <div ref={menuRef} className={classes.optionsMenu}>
           {/* biome-ignore lint/a11y/useButtonType: <explanation> */}
-          <button className={classes.menuItem}>Edit</button>
-          {/* biome-ignore lint/a11y/useButtonType: <explanation> */}
-          <button className={`${classes.menuItem} ${classes.deleteButton}`}>
-            Delete
-          </button>
+          <button className={classes.menuItem}>Edit</button>          
         </div>
       )}
     </li>

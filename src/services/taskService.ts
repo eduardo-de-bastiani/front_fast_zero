@@ -68,6 +68,80 @@ async newTask(taskData: Omit<Task, 'id'>): Promise<Task> {
       throw error;
     }
   }
+
+  async getTask(taskId: number): Promise<Task> {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(`http://localhost:8000/tasks/${taskId}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { "Authorization": `Bearer ${token}` } : {}),
+        },
+      });
+      if (!response.ok) {
+        const errorBody = await response.json();
+        throw new Error(errorBody.detail || "Error while fetching task");
+      }
+      const task = await response.json();
+      return task;
+    } catch (error: unknown) {
+      console.error("Error while fetching task:", error);
+      throw error;
+    }
+  }
+
+  async updateTask(taskId: number, data: {title: string, description: string, state: string}): Promise<Task> {
+    try{
+      const token = localStorage.getItem("token")
+      const response = await fetch(`http://localhost:8000/tasks/${taskId}`,{
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? {"Authorization": `Bearer ${token}`} : {})
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        const errorBody = await response.json();
+        throw new Error(errorBody.detail || "Error while updating task");
+      }
+
+      const updatedTask = await response.json();
+      return updatedTask;
+
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : "Network error.";
+      console.error("Error while updating task:", errorMessage);
+      throw new Error(errorMessage);
+    }
+  }
+
+  async deleteTask(taskId: number): Promise<{ message: string }> {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(`http://localhost:8000/tasks/${taskId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { "Authorization": `Bearer ${token}` } : {}),
+        },
+      });
+
+      if (!response.ok) {
+        const errorBody = await response.json();
+        throw new Error(errorBody.detail || "Error while deleting task");
+      }
+
+      const result = await response.json();
+      return result;
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : "Network error.";
+      console.error("Error while deleting task:", errorMessage);
+      throw new Error(errorMessage);
+    }
+  }
 }
 
 export default new TaskService();
