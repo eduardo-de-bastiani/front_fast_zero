@@ -43,15 +43,24 @@ const TasksList: React.FC = () => {
 	}, [currentFilters]);
 
 	// TODO: aplicar servico de updateTask
-	function handleChangeTaskState(taskId: string, state: TaskState) {
+	async function handleChangeTaskState(taskId: string, newState: TaskState) {
+		// atualiza localmente
 		const newTasks = tasks.map((t) => {
 			if (t.id === taskId) {
-				return { ...t, state };
+				return { ...t, state: newState };
 			}
 			return t;
 		});
 
 		setTasks(newTasks);
+
+		// atualiza o back
+		try{
+			await TaskService.updateTask(Number(taskId), { state: newState });
+		} catch (err: unknown){
+			const errorMessage = err instanceof Error ? err.message : "Error while updating task state";
+    		console.error("Error updating task state:", errorMessage)
+		}
 	}
 
 	return (

@@ -91,7 +91,7 @@ async newTask(taskData: Omit<Task, 'id'>): Promise<Task> {
     }
   }
 
-  async updateTask(taskId: number, data: {title: string, description: string, state: string}): Promise<Task> {
+  async updateTask(taskId: number, data: Partial<{title: string, description: string, state: string}>): Promise<Task> {
     try{
       const token = localStorage.getItem("token")
       const response = await fetch(`http://localhost:8000/tasks/${taskId}`,{
