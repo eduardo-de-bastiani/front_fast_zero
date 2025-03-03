@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Container, TextField, Button, Box, Typography } from "@mui/material";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { useNavigate, useParams } from "react-router-dom";
 import TaskService from "../services/taskService";
 import { Task } from "../types/task";
-import theme from "../theme";
 
 const EditTask: React.FC = () => {
   const { taskId } = useParams<{ taskId: string }>();
@@ -30,6 +30,7 @@ const EditTask: React.FC = () => {
     if (!task) return;
     setError("");
     setSuccess(false);
+    navigate("/app");
 
     try {
       const formData = new FormData(e.currentTarget);
@@ -55,6 +56,7 @@ const EditTask: React.FC = () => {
     } catch (err: unknown) {
       const errorMessage = err instanceof Error ? err.message : "Error deleting task";
       setError(errorMessage);
+      navigate("/app");
     }
   };
 
@@ -62,26 +64,20 @@ const EditTask: React.FC = () => {
 
   return (
     <Container maxWidth="sm" sx={{ mt: 10 }}>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          mb: 2,
-          gap: 1,
-        }}
-      >
-        <Typography variant="h4" align="center">
-          Edit Task
-        </Typography>
-        <Typography
-          variant="subtitle2"
-          sx={{ color: theme.palette.primary.main }}
+      {/* Botão de "Back to Tasks List" */}
+      <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2 }}>
+        <Button
+          variant="outlined"
+          startIcon={<ArrowBackIosNewIcon />}
+          onClick={() => navigate("/app")}
         >
-          #{task.id}
-        </Typography>
+          Cancel
+        </Button>
       </Box>
-      
+
+      <Typography variant="h4" align="center" gutterBottom>
+        Edit Task
+      </Typography>
       <Box
         component="form"
         onSubmit={handleUpdate}
@@ -117,14 +113,14 @@ const EditTask: React.FC = () => {
             Task updated successfully!
           </Typography>
         )}
-        <Button variant="contained" type="submit">
-          Update Task
-        </Button>
-      </Box>
-      <Box sx={{ mt: 2, display: "flex", justifyContent: "center" }}>
-        <Button variant="outlined" color="error" onClick={handleDelete}>
-          Delete Task
-        </Button>
+        <Box sx={{ mt: 2, display: "flex", gap: 2 }}>
+          <Button variant="outlined" color="error" onClick={handleDelete} sx={{ flex: 1 }}>
+            Delete Task
+          </Button>
+          <Button variant="contained" type="submit" sx={{ flex: 1 }}>
+            Update Task
+          </Button>
+        </Box>
       </Box>
     </Container>
   );
