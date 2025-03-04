@@ -64,9 +64,9 @@ const CreateAccount: React.FC = () => {
 					variant="outlined"
 					startIcon={<ArrowBackIosNewIcon />}
 					component={Link}
-					to="/login"
+					to="/"
 				>
-					Back to Login
+					Back to Home
 				</Button>
 			</Box>
 

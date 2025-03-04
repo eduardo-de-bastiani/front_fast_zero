@@ -1,0 +1,232 @@
+/* styles.module.css */
+.container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: #000;
+  overflow: hidden;
+}
+
+.backgroundCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+  }
+
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+}
+
+.title {
+  font-family: 'Roboto', sans-serif;
+  font-size: 2.5rem;
+  background: linear-gradient(45deg, #512DA8, #00ACC1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: titleGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+  from {
+    text-shadow: 0 0 10px rgba(81,45,168,0.5);
+  }
+  to {
+    text-shadow: 0 0 20px rgba(0,172,193,0.8);
+  }
+}
+
+.authButtons {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  background: linear-gradient(45deg, #512DA8, #673AB7);
+  color: white;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(81,45,168,0.3);
+}
+
+.mainContent {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.glowEffect {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(81,45,168,0.2) 0%, transparent 60%);
+  filter: blur(80px);
+  z-index: -1;
+}
+
+.subtitle {
+  font-size: 4rem;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.textGradient {
+  background: linear-gradient(45deg, #00ACC1, #512DA8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textFloat 3s ease-in-out infinite;
+}
+
+@keyframes textFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+.floatingOrbs {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.orb1, .orb2 {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  filter: blur(60px);
+  animation: orbMove 20s linear infinite;
+}
+
+.orb1 {
+  background: rgba(81,45,168,0.4);
+  animation-delay: -5s;
+}
+
+.orb2 {
+  background: rgba(0,172,193,0.3);
+  animation-delay: -10s;
+}
+
+@keyframes orbMove {
+  0% { transform: translate(0,0); }
+  25% { transform: translate(100px, -100px); }
+  50% { transform: translate(0, -200px); }
+  75% { transform: translate(-100px, -100px); }
+  100% { transform: translate(0,0); }
+}
+
+.infoSection {
+  position: absolute;
+  bottom: 2%;
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.creatorCard {
+  background: rgba(255,255,255,0.05);
+  padding: 1rem;
+  border-radius: 1rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(81,45,168,0.3);
+  text-align: center;
+}
+
+.creatorTitle {
+    font-weight: 900; /* Torna o nome em negrito */
+    background: linear-gradient(45deg, #00ACC1, #512DA8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem; /* Reduz o espaço abaixo do nome */
+  }
+
+.socialLinks {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.icon {
+  color: #00ACC1;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.icon:hover {
+  color: #512DA8;
+  transform: scale(1.2);
+}
+
+.collaborators {
+  text-align: right;
+}
+
+.collabList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.collabLink {
+  color: #00ACC1;
+  text-decoration: none;
+  position: relative;
+}
+
+.collabLink:hover {
+  color: #512DA8;
+}
+
+.gridLines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  pointer-events: none;
+}
+
+.gridLine {
+  border-right: 1px solid rgba(81,45,168,0.1);
+  height: 100%;
+}
+
+/* Adicione mais animações e efeitos conforme necessário */

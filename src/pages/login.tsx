@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import {InputAdornment, IconButton } from "@mui/material"
 import { login } from "../services/loginService";
 import { Container, TextField, Button, Box, Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import userService from "../services/userService";
@@ -53,6 +54,16 @@ const Login: React.FC = () => {
 
 	return (
 		<Container maxWidth="sm" sx={{ mt: 10 }}>
+			<Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2 }}>
+				<Button
+					variant="outlined"
+					startIcon={<ArrowBackIosNewIcon />}
+					component={Link}
+					to="/"
+				>
+					Back to Home
+				</Button>
+			</Box>
 			<Typography variant="h4" align="center" gutterBottom>
 				Login
 			</Typography>
