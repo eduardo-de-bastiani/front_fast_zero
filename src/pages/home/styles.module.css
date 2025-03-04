@@ -123,31 +123,51 @@
 }
 
 .orb1, .orb2 {
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  filter: blur(60px);
-  animation: orbMove 20s linear infinite;
-}
-
-.orb1 {
-  background: rgba(81,45,168,0.4);
-  animation-delay: -5s;
-}
-
-.orb2 {
-  background: rgba(0,172,193,0.3);
-  animation-delay: -10s;
-}
-
-@keyframes orbMove {
-  0% { transform: translate(0,0); }
-  25% { transform: translate(100px, -100px); }
-  50% { transform: translate(0, -200px); }
-  75% { transform: translate(-100px, -100px); }
-  100% { transform: translate(0,0); }
-}
+    position: absolute;
+    width: 15vw;
+    height: 15vw;
+    border-radius: 50%;
+    filter: blur(50px);
+    animation: orbMove 12s linear infinite;
+    opacity: 0.5;
+    box-shadow: 
+      0 0 30px rgba(81,45,168,0.6), 
+      0 0 60px rgba(0,172,193,0.5),
+      0 0 90px rgba(81,45,168,0.3);
+  }
+  
+  .orb1 {
+    background: linear-gradient(135deg, rgba(81,45,168,0.6), rgba(81,45,168,0.3));
+    animation-delay: -4s;
+  }
+  
+  .orb2 {
+    background: linear-gradient(135deg, rgba(0,172,193,0.5), rgba(0,172,193,0.2));
+    animation-delay: -8s;
+  }
+  
+  @keyframes orbMove {
+    0% { 
+        transform: translate(0,0) rotate(0deg);
+        filter: blur(50px) brightness(1);
+      }
+      25% { 
+        transform: translate(7vw, -7vw) rotate(90deg) scale(1.1);
+        filter: blur(40px) brightness(1.2);
+      }
+      50% { 
+        transform: translate(0, -12vw) rotate(180deg) scale(0.9);
+        filter: blur(60px) brightness(0.9);
+      }
+      75% { 
+        transform: translate(-7vw, -7vw) rotate(270deg) scale(1.1);
+        filter: blur(40px) brightness(1.2);
+      }
+      100% { 
+        transform: translate(0,0) rotate(360deg) scale(1);
+        filter: blur(50px) brightness(1);
+      }
+  }
 
 .infoSection {
   position: absolute;
@@ -168,11 +188,11 @@
 }
 
 .creatorTitle {
-    font-weight: 900; /* Torna o nome em negrito */
+    font-weight: 900;
     background: linear-gradient(45deg, #00ACC1, #512DA8);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: 0.5rem; /* Reduz o espaço abaixo do nome */
+    margin-bottom: 0.5rem;
   }
 
 .socialLinks {

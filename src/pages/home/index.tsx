@@ -49,7 +49,7 @@ const Home = () => {
 
         <div className={classes.infoSection}>
           <div className={classes.creatorCard}>
-            <h3 className={classes.creatorTitle}>Developed by Eduardo De Bastiani</h3>
+            <h3 className={classes.creatorTitle}>Developed by <span className={classes.creatorName}>Eduardo De Bastiani </span></h3>
             <div className={classes.socialLinks}>
               <a href="https://github.com/eduardo-de-bastiani" target="_blank" rel="noopener noreferrer">
                 <GitHub className={classes.icon} />
