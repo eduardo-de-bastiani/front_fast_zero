@@ -34,7 +34,7 @@ const Navbar: React.FC<NavbarProps> = ({ username }) => {
 		handleClose();
 		localStorage.removeItem("token");
 		localStorage.removeItem("username");
-		navigate("/login");
+		navigate("/home");
 	};
 
 	const handleDeleteAccount = () => {

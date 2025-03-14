@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {InputAdornment, IconButton } from "@mui/material"
+import { useToast } from "../context/toast_context";
 import { login } from "../services/loginService";
 import { Container, TextField, Button, Box, Typography } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
@@ -13,6 +14,7 @@ const Login: React.FC = () => {
 	const [success, setSuccess] = useState<boolean>(false);
 	const [username, setUsername] = useState<string>("");
 	const [showPassword, setShowPassword] = useState(false);
+	const { showToast } = useToast();
 	const navigate = useNavigate();
 
 	const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -25,12 +27,13 @@ const Login: React.FC = () => {
 
 		if (!email || !password) {
 			setError("Email and password are required.");
+			showToast("Email and password are required.", "error");
 			return;
 		}
 		try {
 			await login(String(email), String(password));			
 
-			setSuccess(true);
+			showToast("Login successful!", "success");
 
 			// busca o username
 			const user = await userService.getUser();
@@ -45,6 +48,7 @@ const Login: React.FC = () => {
 			const errorMessage =
 				err instanceof Error ? err.message : "Error while authenticating";
 			setError(errorMessage);
+			showToast(errorMessage, "error");
 		}
 	};
 
