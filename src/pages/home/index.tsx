@@ -22,7 +22,7 @@ const Home = () => {
       <canvas ref={canvasRef} className={classes.backgroundCanvas} />
       
       <header className={classes.header}>
-        <h1 className={classes.title}>To-Do's App</h1>
+        <h1 className={classes.title}>List It</h1>
         <div className={classes.authButtons}>
           <Link to="/login" className={classes.button}>
             <Login fontSize="small" />
