@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Container, TextField, Button, Box, Typography } from "@mui/material";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { useNavigate } from "react-router-dom";
+import { useToast } from "../context/toast_context";
 import UserService from "../services/userService";
 
 const EditAccount: React.FC = () => {
@@ -10,6 +11,7 @@ const EditAccount: React.FC = () => {
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [success, setSuccess] = useState<boolean>(false);
+  const { showToast } = useToast();
   const navigate = useNavigate();
 
   // Busca os dados do usuário quando o componente é montado
@@ -41,6 +43,7 @@ const EditAccount: React.FC = () => {
       });
       localStorage.setItem("username", username);
       setSuccess(true);
+      showToast('Account updated successfully.', 'success');
 
       navigate('/app')
 

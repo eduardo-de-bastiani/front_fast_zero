@@ -1,12 +1,14 @@
 // src/pages/DeleteAccount.tsx
 import React, { useState } from 'react';
 import { Container, TextField, Button, Box, Typography } from '@mui/material';
+import { useToast } from "../context/toast_context";
 import { useNavigate } from 'react-router-dom';
 import UserService from '../services/userService';
 
 const DeleteAccount: React.FC = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const { showToast } = useToast();
   const navigate = useNavigate();
 
   const handleDelete = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -17,7 +19,7 @@ const DeleteAccount: React.FC = () => {
       const result = await UserService.deleteUser();
 
       if (result){
-        console.log("Account deleted successfully.")
+        showToast('Account has been deleted.', 'info');
       }
       
       // Remove token e username do localStorage

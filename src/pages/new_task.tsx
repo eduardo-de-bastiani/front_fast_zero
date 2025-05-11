@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Box, Button, Container, Typography } from "@mui/material";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import TaskForm from "../components/task_form";
+import { useToast } from "../context/toast_context";
 import { useNavigate } from "react-router-dom";
 import TaskService from "../services/taskService";
 import { TaskFormData, Task } from "../types/task";
@@ -9,15 +10,16 @@ import { TaskFormData, Task } from "../types/task";
 const NewTask: React.FC = () => {
 	const [error, setError] = useState<string>("");
 	const [success, setSuccess] = useState<boolean>(false);
+	const { showToast } = useToast();
 	const navigate = useNavigate();
+
 
 	const handleSubmit = async (data: TaskFormData) => {
 		setError("");
 		setSuccess(false);
 		try {
-			console.log("Dados do formulário:", data);
 			const createdTask: Task = await TaskService.newTask(data);
-			console.log("Tarefa criada com sucesso:", createdTask);
+			showToast(`Task '${createdTask.title}' created sucessfuly.`, 'success')
 			setSuccess(true);
 
 			//redireciona para a lista de tarefas
@@ -26,6 +28,7 @@ const NewTask: React.FC = () => {
 			const errorMessage =
 				err instanceof Error ? err.message : "Error while creating task";
 			setError(errorMessage);
+			showToast('Error while creating Task.', 'error');
 		}
 	};
 

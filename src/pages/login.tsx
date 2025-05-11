@@ -33,7 +33,7 @@ const Login: React.FC = () => {
 		try {
 			await login(String(email), String(password));			
 
-			showToast("Login successful!", "success");
+			showToast("Login successful.", "success");
 
 			// busca o username
 			const user = await userService.getUser();
@@ -73,6 +73,7 @@ const Login: React.FC = () => {
 			</Typography>
 			<Box
 				component="form"
+				noValidate 	// desliga validacao nativa
 				onSubmit={handleLogin}
 				sx={{ display: "flex", flexDirection: "column", gap: 2 }}
 			>

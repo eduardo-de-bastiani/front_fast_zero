@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, TextField, Button, Box, Typography } from "@mui/material";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import { useToast } from "../context/toast_context";
 import { useNavigate, useParams } from "react-router-dom";
 import TaskService from "../services/taskService";
 import { Task } from "../types/task";
@@ -10,6 +11,7 @@ const EditTask: React.FC = () => {
   const [task, setTask] = useState<Task | null>(null);
   const [error, setError] = useState<string>("");
   const [success, setSuccess] = useState<boolean>(false);
+  const { showToast } = useToast();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -42,9 +44,11 @@ const EditTask: React.FC = () => {
       const updatedTask = await TaskService.updateTask(Number(task.id), updatedData);
       setTask(updatedTask);
       setSuccess(true);
+      showToast(`Task '${task.title}' updated sucessfully.`, 'success');
     } catch (err: unknown) {
       const errorMessage = err instanceof Error ? err.message : "Error updating task";
       setError(errorMessage);
+      showToast(`Error while updating task '${task.title}'.`, 'error');
     }
   };
 
@@ -53,9 +57,11 @@ const EditTask: React.FC = () => {
     try {
       await TaskService.deleteTask(Number(task.id));
       navigate("/app");
+      showToast(`Task '${task.title}' has been deleted.`, 'info');
     } catch (err: unknown) {
       const errorMessage = err instanceof Error ? err.message : "Error deleting task";
       setError(errorMessage);
+      showToast(`Error while deleting task '${task.title}'.`, 'error');
       navigate("/app");
     }
   };
@@ -97,7 +103,6 @@ const EditTask: React.FC = () => {
           variant="outlined"
           fullWidth
           defaultValue={task.description}
-          required
         />
         <TextField
           label="State"
@@ -107,12 +112,6 @@ const EditTask: React.FC = () => {
           defaultValue={task.state}
           required
         />
-        {error && <Typography color="error">{error}</Typography>}
-        {success && (
-          <Typography color="primary">
-            Task updated successfully!
-          </Typography>
-        )}
         <Box sx={{ mt: 2, display: "flex", gap: 2 }}>
           <Button variant="outlined" color="error" onClick={handleDelete} sx={{ flex: 1 }}>
             Delete Task

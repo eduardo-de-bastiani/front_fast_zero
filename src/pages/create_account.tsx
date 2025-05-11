@@ -12,6 +12,7 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { Link, useNavigate } from "react-router-dom";
+import { useToast } from "../context/toast_context";
 import UserService from "../services/userService";
 import { login } from "../services/loginService";
 
@@ -22,6 +23,7 @@ const CreateAccount: React.FC = () => {
 	const [showPassword, setShowPassword] = useState(false);
 	const [error, setError] = useState("");
 	const [success, setSuccess] = useState(false);
+	const { showToast } = useToast();
 	const navigate = useNavigate();
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -45,10 +47,18 @@ const CreateAccount: React.FC = () => {
 			localStorage.setItem("username", username);
 
 			navigate("/app");
+			showToast('Account created successfully.', 'success');
 		} catch (err: unknown) {
-			const errorMessage =
-				err instanceof Error ? err.message : "Network error.";
-			setError(errorMessage);
+			const errorMessage = err instanceof Error ? err.message : "Network error.";
+
+			
+			if (errorMessage.toLowerCase().includes("username")) {
+				showToast("Username already exists.", "error");
+			} else if (errorMessage.toLowerCase().includes("email")) {
+				showToast("Email already exists.", "error");
+			} else {
+				showToast(errorMessage, "error");
+			}
 		}
 	};
 
@@ -77,6 +87,7 @@ const CreateAccount: React.FC = () => {
 
 			<Box
 				component="form"
+				noValidate	// desliga validacao nativa
 				onSubmit={handleSubmit}
 				sx={{
 					display: "flex",
@@ -118,16 +129,6 @@ const CreateAccount: React.FC = () => {
 						},
 					}}
 				/>
-				{error && (
-					<Typography variant="body2" color="error">
-						{error}
-					</Typography>
-				)}
-				{success && (
-					<Typography variant="body2" color="primary">
-						Account created successfully!
-					</Typography>
-				)}
 				<Button variant="contained" type="submit">
 					Create Account
 				</Button>
