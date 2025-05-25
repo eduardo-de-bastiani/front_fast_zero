@@ -51,9 +51,6 @@ const TaskForm: React.FC<TaskFormProps> = ({ onSubmit }) => {
 
   return (
     <Box component="form" onSubmit={handleSubmit} sx={{ maxWidth: 500, mx: 'auto', p: 2 }}>
-      <Typography variant="h6" gutterBottom>
-        New Task
-      </Typography>
 
       <FormControl fullWidth sx={{ mb: 2 }}>
         <TextField

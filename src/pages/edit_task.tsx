@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Container, TextField, Button, Box, Typography } from "@mui/material";
+import { Container, TextField, Button, Box, Typography, FormControl, InputLabel, Select, MenuItem} from "@mui/material";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { useToast } from "../context/toast_context";
 import { useNavigate, useParams } from "react-router-dom";
 import TaskService from "../services/taskService";
 import { Task } from "../types/task";
+
+const STATES = ["draft", "todo", "doing", "done"];
 
 const EditTask: React.FC = () => {
   const { taskId } = useParams<{ taskId: string }>();
@@ -104,16 +106,31 @@ const EditTask: React.FC = () => {
           fullWidth
           defaultValue={task.description}
         />
-        <TextField
-          label="State"
-          name="state"
-          variant="outlined"
-          fullWidth
-          defaultValue={task.state}
-          required
-        />
+
+        {/* Dropdown de State */}
+        <FormControl fullWidth required>
+          <InputLabel id="state-select-label">State</InputLabel>
+          <Select
+            labelId="state-select-label"
+            name="state"
+            label="State"
+            defaultValue={task.state}
+          >
+            {STATES.map((s) => (
+              <MenuItem key={s} value={s}>
+                {s.charAt(0).toUpperCase() + s.slice(1)}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
         <Box sx={{ mt: 2, display: "flex", gap: 2 }}>
-          <Button variant="outlined" color="error" onClick={handleDelete} sx={{ flex: 1 }}>
+          <Button
+            variant="outlined"
+            color="error"
+            onClick={handleDelete}
+            sx={{ flex: 1 }}
+          >
             Delete Task
           </Button>
           <Button variant="contained" type="submit" sx={{ flex: 1 }}>
